@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="goldLeaf" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#F6C453"/>
+      <stop offset="40%"  stop-color="#D4AF37"/>
+      <stop offset="80%"  stop-color="#E07A00"/>
+      <stop offset="100%" stop-color="#A8891A"/>
+    </linearGradient>
+    <linearGradient id="leafShine" x1="8" y1="6" x2="24" y2="26" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#FFF8DC" stop-opacity="0.6"/>
+      <stop offset="50%"  stop-color="#D4AF37" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#A8891A" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- Leaf body -->
+  <path d="M16 2C14 8 8 12 8 18C8 23 12 28 16 30C20 28 24 23 24 18C24 12 18 8 16 2Z"
+        fill="url(#goldLeaf)"/>
+  <!-- Center vein -->
+  <path d="M16 4V28" stroke="#A8891A" stroke-width="0.6" opacity="0.5"/>
+  <!-- Side veins -->
+  <path d="M10 14L16 16" stroke="#A8891A" stroke-width="0.4" opacity="0.3"/>
+  <path d="M22 14L16 16" stroke="#A8891A" stroke-width="0.4" opacity="0.3"/>
+  <path d="M12 20L16 18" stroke="#A8891A" stroke-width="0.4" opacity="0.3"/>
+  <path d="M20 20L16 18" stroke="#A8891A" stroke-width="0.4" opacity="0.3"/>
+  <!-- Stem -->
+  <path d="M16 2C16 1 15.5 0.5 15 0" stroke="#A8891A" stroke-width="1" stroke-linecap="round" fill="none"/>
+  <!-- Shine highlight -->
+  <path d="M14 6C12 10 10 14 10 18C10 21 12 25 14 27"
+        stroke="url(#leafShine)" stroke-width="2" fill="none" opacity="0.4"/>
+</svg>

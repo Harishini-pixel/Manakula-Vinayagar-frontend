@@ -67,7 +67,9 @@ export default function CursorFollower() {
 
       element.style.left = `${x}px`;
       element.style.top = `${y}px`;
-      layer.appendChild(element);
+      if (layer) {
+        layer.appendChild(element);
+      }
 
       const isPetal = kind === "petal";
 

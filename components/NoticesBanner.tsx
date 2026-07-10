@@ -6,18 +6,26 @@
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 
+interface Notice {
+  id: string;
+  type: "emergency" | "banner" | "homepage" | "announcement" | "scheduled";
+  title: string;
+  body: string;
+  priority: number;
+}
+
 // Mock notices — will be fetched from /api/v1/notices once backend is connected
-const MOCK_NOTICES = [
+const MOCK_NOTICES: Notice[] = [
   {
     id: "1",
-    type: "banner" as const,
+    type: "banner",
     title: "Online Booking Open",
     body: "Book Moolavar Abishegam and other services online. Advance booking required.",
     priority: 2,
   },
   {
     id: "2",
-    type: "announcement" as const,
+    type: "announcement",
     title: "Vinayagar Chaturthi Special Schedule",
     body: "Extended darshan timings during Vinayagar Chaturthi celebrations. Click for details.",
     priority: 3,

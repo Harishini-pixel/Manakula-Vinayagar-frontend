@@ -7,6 +7,7 @@ import BookingSection   from "@/components/BookingSection";
 import DonationSection  from "@/components/DonationSection";
 import MyBookingsSection from "@/components/MyBookingsSection";
 import HistorySection   from "@/components/HistorySection";
+import GallerySection   from "@/components/GallerySection";
 import Footer           from "@/components/Footer";
 
 export default function Home() {
@@ -39,6 +40,9 @@ export default function Home() {
 
       {/* ─── Temple History (Sticky Stack) ───────────────── */}
       <HistorySection />
+
+      {/* ─── Sacred Gallery ──────────────────────────────── */}
+      <GallerySection />
 
       {/* ─── Footer ──────────────────────────────────────── */}
       <Footer />

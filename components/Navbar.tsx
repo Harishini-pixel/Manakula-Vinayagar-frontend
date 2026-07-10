@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,6 +17,9 @@ const NAV_LINKS = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const navRef  = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -58,31 +62,59 @@ export default function Navbar() {
 
           {/* Desktop Links */}
           <ul className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map(({ label, href }) => (
-              <li key={label}>
-                <Link
-                  href={href}
-                  className="relative font-body text-sm font-medium text-ivory-muted hover:text-ivory transition-colors duration-200
-                    before:absolute before:-bottom-1 before:left-0 before:h-px before:w-0 before:bg-gold-primary
-                    before:transition-all before:duration-300 before:ease-[var(--ease-out-expo)]
-                    hover:before:w-full"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
+            {NAV_LINKS.map(({ label, href }) => {
+              const targetHref = isHome ? href : `/${href}`;
+              return (
+                <li key={label}>
+                  <Link
+                    href={targetHref}
+                    onClick={(e) => {
+                      if (isHome && href.startsWith("#")) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const elem = document.getElementById(targetId);
+                        if (elem) {
+                          elem.scrollIntoView({ behavior: "smooth" });
+                          window.history.pushState(null, "", href);
+                        }
+                      }
+                    }}
+                    className="relative font-body text-sm font-medium text-ivory-muted hover:text-ivory transition-colors duration-200
+                      before:absolute before:-bottom-1 before:left-0 before:h-px before:w-0 before:bg-gold-primary
+                      before:transition-all before:duration-300 before:ease-[var(--ease-out-expo)]
+                      hover:before:w-full"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           {/* Right CTAs */}
           <div className="flex items-center gap-3">
             <Link
-              href="#donate"
+              href={isHome ? "#donate" : "/#donate"}
+              onClick={(e) => {
+                if (isHome) {
+                  e.preventDefault();
+                  document.getElementById("donate")?.scrollIntoView({ behavior: "smooth" });
+                  window.history.pushState(null, "", "#donate");
+                }
+              }}
               className="btn-ghost hidden sm:flex items-center px-4 py-2.5 text-sm"
             >
               Donate
             </Link>
             <Link
-              href="#booking"
+              href={isHome ? "#booking" : "/#booking"}
+              onClick={(e) => {
+                if (isHome) {
+                  e.preventDefault();
+                  document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
+                  window.history.pushState(null, "", "#booking");
+                }
+              }}
               className="btn-primary hidden sm:flex items-center gap-2 px-5 py-2.5 text-sm"
             >
               <span>Book Now</span>
@@ -116,21 +148,42 @@ export default function Navbar() {
           menuOpen ? "translate-y-0" : "-translate-y-4"
         }`}>
           <ul className="flex flex-col gap-6">
-            {NAV_LINKS.map(({ label, href }) => (
-              <li key={label}>
-                <Link
-                  href={href}
-                  onClick={() => setMenuOpen(false)}
-                  className="font-heading text-3xl text-ivory hover:text-gold-primary transition-colors duration-200"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
+            {NAV_LINKS.map(({ label, href }) => {
+              const targetHref = isHome ? href : `/${href}`;
+              return (
+                <li key={label}>
+                  <Link
+                    href={targetHref}
+                    onClick={(e) => {
+                      setMenuOpen(false);
+                      if (isHome && href.startsWith("#")) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const elem = document.getElementById(targetId);
+                        if (elem) {
+                          elem.scrollIntoView({ behavior: "smooth" });
+                          window.history.pushState(null, "", href);
+                        }
+                      }
+                    }}
+                    className="font-heading text-3xl text-ivory hover:text-gold-primary transition-colors duration-200"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
           <Link
-            href="#booking"
-            onClick={() => setMenuOpen(false)}
+            href={isHome ? "#booking" : "/#booking"}
+            onClick={(e) => {
+              setMenuOpen(false);
+              if (isHome) {
+                e.preventDefault();
+                document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
+                window.history.pushState(null, "", "#booking");
+              }
+            }}
             className="btn-primary mt-8 inline-flex px-6 py-3 text-base"
           >
             Book a Service
